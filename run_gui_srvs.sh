@@ -17,7 +17,7 @@ user=$USER
 priority=100
 
 [program:x11vnc]
-command=/usr/bin/x11vnc -xkb -noxrecord -noxfixes -noxdamage -display $DISPLAY -nopw -wait 5 -shared -permitfiletransfer -tightfilexfer
+command=/usr/bin/x11vnc -xkb -noxrecord -cursor arrow -noxdamage -display $DISPLAY -nopw -wait 5 -shared -permitfiletransfer -tightfilexfer
 user=$USER
 autorestart=true
 priority=200
