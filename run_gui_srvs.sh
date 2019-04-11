@@ -1,5 +1,8 @@
 #!/bin/sh
 
+DISPLAY=:1
+USER=`whoami`
+
 setup() {
     sudo apk add xvfb x11vnc supervisor xfce4 xfce4-terminal faenza-icon-theme 
 
@@ -8,19 +11,19 @@ setup() {
 nodaemon=true
 
 [program:xvfb]
-command=/usr/bin/Xvfb :1 -screen 0 1920x1080x24
+command=/usr/bin/Xvfb $DISPLAY -screen 0 1920x1080x24
 autorestart=true
 user=$USER
 priority=100
 
 [program:x11vnc]
-command=/usr/bin/x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :1 -nopw -wait 5 -shared -permitfiletransfer -tightfilexfer
+command=/usr/bin/x11vnc -xkb -noxrecord -noxfixes -noxdamage -display $DISPLAY -nopw -wait 5 -shared -permitfiletransfer -tightfilexfer
 user=$USER
 autorestart=true
 priority=200
 
 [program:xfce4]
-environment=HOME="/home/$USER",DISPLAY=":1",USER="$USER"
+environment=HOME="/home/$USER",DISPLAY="$DISPLAY",USER="$USER"
 command=/usr/bin/startxfce4
 user=$USER
 autorestart=true
@@ -50,4 +53,3 @@ case "$1" in
         help
         ;;
 esac
-
